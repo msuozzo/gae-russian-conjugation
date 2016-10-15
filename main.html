@@ -1,0 +1,13 @@
+<h2>{{ word }}</h2>
+{% if not table %}
+<p>No Results found</p>
+{% else %}
+<table>
+    {% for form, conjugation in table %}
+    <tr>
+        <th style="text-align: left;">{{ form }}</th>
+        <td>{{ conjugation }}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endif %}
