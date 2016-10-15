@@ -43,7 +43,16 @@ def _GetStrings(elem):
 
 
 def GetConjugationTable(word):
-    url = 'https://en.wiktionary.org/wiki/{}'.format(word)
+    """Returns the conjugation table for a Russian verb.
+
+    Args:
+        word: unicode, The UTF-8 encoded Russian verb to be conjugated.
+
+    Returns:
+        A list of 2-tuples of the form (verb_form, conjugation) filtered to
+        those verb forms matching _CAPTURE_REGEXES.
+    """
+    url = u'https://en.wiktionary.org/wiki/{}'.format(word)
     url = _IriToUri(url)
     response = urllib2.urlopen(url)
 
