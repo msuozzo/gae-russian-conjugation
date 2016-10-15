@@ -14,7 +14,10 @@ import BeautifulSoup as bs
 _CAPTURE_REGEXES = [
         r'1st singular',
         r'2nd singular',
-        r'2nd plural']
+        r'2nd plural',
+        r'masculine',
+        r'feminine',
+        r'neuter']
 _CAPTURE_REGEX_TEXT = '|'.join(
         '({})'.format(regex) for regex in _CAPTURE_REGEXES)
 _CAPTURE_REGEX = re.compile(_CAPTURE_REGEX_TEXT)
