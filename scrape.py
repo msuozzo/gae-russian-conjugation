@@ -78,7 +78,7 @@ def GetConjugationTable(word):
                 label = ' '.join(parts)
         else:
             label = ''
-        if not _CAPTURE_REGEX.findall(label): continue
+        if not _CAPTURE_REGEX.findall(' '.join(parts)): continue
         new_row.append(label)
 
         for col in row.findAll('td')[:1]:
