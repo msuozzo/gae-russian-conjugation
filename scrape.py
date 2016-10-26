@@ -14,10 +14,9 @@ import BeautifulSoup as bs
 _CAPTURE_REGEXES = [
         r'1st singular',
         r'2nd singular',
-        r'2nd plural',
+        r'3rd plural',
         r'masculine',
-        r'feminine',
-        r'neuter']
+        r'feminine']
 _CAPTURE_REGEX_TEXT = '|'.join(
         '({})'.format(regex) for regex in _CAPTURE_REGEXES)
 _CAPTURE_REGEX = re.compile(_CAPTURE_REGEX_TEXT)
@@ -71,7 +70,14 @@ def GetConjugationTable(word):
         labels = _GetStrings(header)
         if not labels: continue
 
-        label = ' '.join(filter(None, map(lambda s: s.strip(), labels)))
+        parts = filter(None, map(lambda s: s.strip(), labels))
+        if parts:
+            try:
+                label = parts[parts.index('(') + 1]
+            except ValueError:
+                label = ' '.join(parts)
+        else:
+            label = ''
         if not _CAPTURE_REGEX.findall(label): continue
         new_row.append(label)
 
