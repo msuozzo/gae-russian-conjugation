@@ -71,6 +71,8 @@ def GetConjugationTable(word):
         if not labels: continue
 
         parts = filter(None, map(lambda s: s.strip(), labels))
+        if not _CAPTURE_REGEX.findall(' '.join(parts)): continue
+
         if parts:
             try:
                 label = parts[parts.index('(') + 1]
@@ -78,16 +80,16 @@ def GetConjugationTable(word):
                 label = ' '.join(parts)
         else:
             label = ''
-        if not _CAPTURE_REGEX.findall(' '.join(parts)): continue
         new_row.append(label)
 
-        for col in row.findAll('td')[:1]:
+        for col in row.findAll('td'):
             spans = col.findAll('span')
             if not spans: continue
 
             label = _GetStrings(spans[0])[0]
-            if not label: continue
-            new_row.append(label)
+            if label:
+                new_row.append(label)
+                break
         if len(new_row) < 2:
             new_row.append('')
         rows.append(new_row)
